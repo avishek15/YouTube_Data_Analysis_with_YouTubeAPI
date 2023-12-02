@@ -1,0 +1,1 @@
+channel_list = ['desmondcrypto']#, 'brainbrocrypto', 'cryptoMOC','grenadetw', 'desmondcrypto', 'blockchaindailynews']
