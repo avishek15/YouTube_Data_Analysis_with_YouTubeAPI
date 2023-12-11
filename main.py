@@ -62,14 +62,23 @@ def main():
 
 	## PHASE 2
 	main_database = pd.read_csv("main_database_11th_Dec.csv", index_col=[0])
+	keyword_list = []
 	for row_id, values in main_database.iterrows():
 		document = values['translated']
 		keywords_in_video = ask_llm_to_extract_keywords(document)
 		# row_id == video_id
 		# values['publish_date']
 		# 	-> push to SQL
-		print(keywords_in_video)
-		print("=" * 25)
+		keywords = keywords_in_video.strip().split("\n")
+		temp_list = []
+		for keyword in keywords:
+			t = keyword.split('.')
+			if len(t) == 2:
+				temp_list.append(t[1])
+		keyword_list.append(",".join(temp_list))
+		# print("=" * 25)
+	main_database['keywords'] = keyword_list
+	print(main_database.head(2))
 
 if __name__ == '__main__':
 	main()
